@@ -16,9 +16,10 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+        backgroundColor: Colors.blue,
         shape: const StadiumBorder(),
         onPressed: onPressed,
-        child: const Icon( Icons.add )
+        child: const Icon( Icons.add, color: Colors.white),
     );
   }
 }

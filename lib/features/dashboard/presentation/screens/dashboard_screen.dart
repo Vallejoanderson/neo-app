@@ -2,9 +2,19 @@
 import 'package:flutter/material.dart';
 import 'package:neo/features/dashboard/shared/widgets/custom_button.dart';
 import 'package:neo/features/dashboard/shared/widgets/add_product.dart';
+import 'package:neo/features/dashboard/shared/widgets/product_list.dart';
+import 'package:neo/features/dashboard/domain/product.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  
+  final List<Product> _products = [];
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +33,12 @@ class DashboardScreen extends StatelessWidget {
           )
         ]
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            Expanded(child: ProductList(products: _products)),
+            const Text(
               'Neo App',
               style: TextStyle(
                 fontSize: 24,
@@ -44,7 +55,11 @@ class DashboardScreen extends StatelessWidget {
             onPressed: () => showDialog(
               context: context,
               builder: (BuildContext context) {
-                return AddProduct();
+                return AddProduct( onSave: (Product product) {
+                  setState(() {
+                    _products.add(product);
+                  });
+                });
               },
             ),
           ),
